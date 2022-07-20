@@ -7,19 +7,19 @@ import java.util.Collection;
 import java.util.List;
 
 public class AdminResource {
-    public Customer getCustomer(String email){
+    public static Customer getCustomer(String email){
         return null;
     }
-    public void addRoom(List<IRoom> rooms){
+    public static void addRoom(List<IRoom> rooms){
 
     }
-    public Collection<IRoom> getAllRooms(){
+    public static Collection<IRoom> getAllRooms(){
         return null;
     }
-    public Collection<Customer> getAllCustomers(){
+    public static Collection<Customer> getAllCustomers(){
         return null;
     }
-    public void displayAllReservations(){
+    public static void displayAllReservations(){
 
     }
 }

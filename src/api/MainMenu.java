@@ -3,7 +3,7 @@ package api;
 import java.util.Scanner;
 
 public class MainMenu {
-    public static void main(String[] args){
+    public static void mainMenu(){
 
         boolean runTask = true;
         try(Scanner scan = new Scanner(System.in)){

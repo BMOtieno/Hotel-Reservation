@@ -3,7 +3,7 @@ package api;
 import java.util.Scanner;
 
 public class AdminMenu {
-    public static void main(String[] args){
+    public static void adminMenu(){
         boolean runProcess = true;
         try(Scanner scanner = new Scanner(System.in)){
 

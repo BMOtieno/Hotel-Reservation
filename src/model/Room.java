@@ -60,6 +60,7 @@ public class Room implements IRoom{
     public String toString() {
         return "RoomNumber: " + getRoomNumber() +
                 "\nPrice: " + getRoomPrice() +
-                "\nRoom Type: " + getRoomType();
+                "\nRoom Type: " + getRoomType() +
+                "\nVacant: " + isFree();
     }
 }
