@@ -15,6 +15,11 @@ public class Room implements IRoom{
         this.enumeration = enumeration;
     }
 
+    //empty constructor
+    public Room(){
+
+    }
+
     //method to compare if two rooms have the same room number
     @Override
     public boolean equals(Object o) {

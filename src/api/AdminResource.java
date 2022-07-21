@@ -6,17 +6,15 @@ import api.HotelResource;
 import service.CustomerService;
 import service.ReservationService;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class AdminResource {
 
     public static Customer getCustomer(String email) {
+        Customer customer = new Customer();
         //calling static method from HotelResource class
         HotelResource.getCustomer(email);
-        return null;
+        return customer;
     }
 
     public static void addRoom(List<IRoom> rooms){
@@ -29,16 +27,18 @@ public class AdminResource {
     public static Collection<IRoom> getAllRooms(){
         Queue<IRoom> allRooms = new LinkedList<>();
 
+        System.out.println("All Rooms: ");
         while(!allRooms.isEmpty()){
             System.out.println(allRooms.poll());
         }
-        return null;
+        return allRooms;
     }
 
     public static Collection<Customer> getAllCustomers() {
+        List<Customer> customer = new ArrayList<>();
         //calling static method from CustomerService class
         CustomerService.getAllCustomers();
-        return null;
+        return customer;
     }
 
     public static void displayAllReservations(){

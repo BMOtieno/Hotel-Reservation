@@ -1,5 +1,6 @@
 package api;
 
+import model.Room;
 import service.CustomerService;
 import service.ReservationService;
 
@@ -12,9 +13,10 @@ import java.util.*;
 public class HotelResource {
 
     public static Customer getCustomer(String email){
+        Customer customer = new Customer();
         //calling static method to get customer from CustomerService class
         CustomerService.getCustomer(email);
-        return null;
+        return customer;
     }
 
     public static void createACustomer(String email, String firstName, String lastName){
@@ -24,11 +26,14 @@ public class HotelResource {
 
     public static IRoom getRoom(String roomNumber){
         //calling static method to get room from ReservationService class
+        Room room = new Room();
         ReservationService.getARoom(roomNumber);
-        return null;
+        return room;
     }
 
     public static Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate){
+
+        Reservation reserve = new Reservation();
 
         List<Customer> customer = new ArrayList<>();
 
@@ -41,12 +46,13 @@ public class HotelResource {
                 ReservationService.reserveARoom(customerObject, room, checkInDate, checkOutDate);
             }
         }
-        return null;
+        return reserve;
     }
 
     public static Collection<Reservation> getCustomerReservations(String customerEmail){
 
         List<Customer> customer = new ArrayList<>();
+        ArrayList<Reservation> reserve = new ArrayList<>();
 
         for(Customer res: customer){
             Map<String, Customer> map = new HashMap<>();
@@ -57,12 +63,13 @@ public class HotelResource {
                 ReservationService.getCustomerReservation(res);
             }
         }
-        return null;
+        return reserve;
     }
 
     public static Collection<IRoom> findARoom(Date checkIn, Date checkOut){
         //static method to find room from ReservationService class
+        List<IRoom> room = new ArrayList<>();
         ReservationService.findRooms(checkIn, checkOut);
-        return null;
+        return room;
     }
 }

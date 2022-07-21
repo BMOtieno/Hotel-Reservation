@@ -1,5 +1,8 @@
 package api;
 
+import api.HotelResource;
+import model.Customer;
+
 import java.util.Scanner;
 
 public class MainMenu {

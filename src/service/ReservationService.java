@@ -1,8 +1,6 @@
 package service;
 
-import model.Customer;
-import model.IRoom;
-import model.Reservation;
+import model.*;
 
 import java.util.*;
 
@@ -11,22 +9,22 @@ public class ReservationService {
     //method to add a new room
     public static void addRoom(IRoom room){
         String newRoom = room.getRoomNumber();
-        Map<IRoom, String> map = new HashMap<>();
-        map.put(room, newRoom);
-        System.out.println(newRoom + " is an added room");
+        System.out.println("New room added: ");
+        System.out.println(newRoom);
     }
 
     //method that gets the room through the provided roomId
     public static IRoom getARoom(String roomId){
-        List<IRoom> getRoom = new ArrayList<>();
-        for(IRoom room: getRoom){
-            if(roomId.equals(room.getRoomNumber())){
-                System.out.println("Room you were looking for: " + room);
-            }else{
-                System.out.println("Sorry cannot find a room by the given ID.");
-            }
+
+        Room room = new Room();
+
+        String searchedRoom = room.getRoomNumber();
+
+        if(roomId.equals(searchedRoom)){
+            System.out.println("We found this room: ");
+            System.out.println(roomId);
         }
-        return null;
+        return room;
     }
 
     //method to reserve a room
@@ -41,21 +39,24 @@ public class ReservationService {
         List<IRoom> findRoom = new ArrayList<>();
 
         for(IRoom room : findRoom){
-            Map<Date, IRoom> map = new HashMap<>();
-            map.put(checkInDate, room);
-            map.put(checkOutDate, room);
+            Map<Date, IRoom> mapOne = new HashMap<>();
+            Map<Date, IRoom> mapTwo = new HashMap<>();
+            mapOne.put(checkInDate, room);
+            mapTwo.put(checkOutDate, room);
 
-            if(map.containsKey(checkInDate) && map.containsKey(checkOutDate)){
-                System.out.println("Here are the rooms available: " + map.values());
+            if(mapOne.containsKey(checkInDate) && mapTwo.containsKey(checkOutDate)){
+                System.out.println("Here are the rooms available: ");
+                System.out.println(mapOne.values());
+                System.out.println(mapTwo.values());
             }else{
                 System.out.println("Sorry no rooms are available by the given dates");
             }
         }
-        return null;
+        return findRoom;
     }
 
     //method to get customer's reservation
-    public static Collection<Reservation> getCustomerReservation(Customer customer){
+    public static  Collection<Reservation> getCustomerReservation(Customer customer){
 
         List<Reservation> reservation = new ArrayList<>();
 
@@ -64,12 +65,13 @@ public class ReservationService {
             map.put(customer, reserve);
 
             if(map.containsKey(customer)){
-                System.out.println("Here are the customer reservation details: " + map.values());
+                System.out.println("Here are the customer reservation details: ");
+                System.out.println(map.values());
             }else{
                 System.out.println("Sorry customer hasn't made any reservations.");
             }
         }
-        return null;
+        return reservation;
     }
 
     //method to print all reservations to the console

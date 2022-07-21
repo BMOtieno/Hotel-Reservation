@@ -9,23 +9,25 @@ public class CustomerService {
     //add new customer
     public static void addCustomer(String email, String firstName, String lastName){
         Customer customer = new Customer(firstName, lastName, email);
-        List<Customer> addingCustomer = new ArrayList<>();
-        addingCustomer.add(customer);
-        System.out.println(customer + "\nhas been added");
+        System.out.println("New customer added");
+        System.out.println("================================");
+        System.out.println(customer);
+        System.out.println("================================");
     }
 
     //method to get customer details through email provided
     public static String getCustomer(String customerEmail){
         Map<String, Customer> data = new HashMap<>();
-        ArrayList<Customer> person = new ArrayList<>();
 
-        for(Customer customerList: person){
-            add(data, customerList);
-            if(customerEmail.equals(data.keySet())){
-                System.out.println(customerList);
+        for(String email: data.keySet()) {
+            if (email.equals(customerEmail)) {
+                System.out.println("Retrieved customer details");
+                System.out.println("============================");
+                System.out.println(data.values());
+                System.out.println("============================");
             }
         }
-        return "Customer not found by the provided email. Try again.";
+        return "Sorry customer not found";
     }
 
     //method to search for all customers
@@ -33,13 +35,8 @@ public class CustomerService {
         Queue<Customer> getCustomers = new LinkedList<>();
 
         while(!getCustomers.isEmpty()){
-            System.out.println("Customer " + getCustomers.poll() + " has signed up");
+            System.out.println(getCustomers.poll());
         }
        return getCustomers;
-    }
-
-    //method to add object of the Customer class to the map data structure
-    public static void add(Map<String, Customer> map, Customer customer){
-        map.put(customer.getEmail(), customer);
     }
 }
