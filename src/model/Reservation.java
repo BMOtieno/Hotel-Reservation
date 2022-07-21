@@ -3,11 +3,12 @@ package model;
 import java.util.Date;
 
 public class Reservation {
-    private Customer customer;
-    private IRoom room;
-    private Date checkInDate;
-    private Date checkOutDate;
+    protected Customer customer;
+    protected IRoom room;
+    protected Date checkInDate;
+    protected Date checkOutDate;
 
+    //constructor
     public Reservation(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
         this.customer = customer;
         this.room = room;

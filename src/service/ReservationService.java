@@ -7,10 +7,16 @@ import model.Reservation;
 import java.util.*;
 
 public class ReservationService {
+
+    //method to add a new room
     public static void addRoom(IRoom room){
         String newRoom = room.getRoomNumber();
+        Map<IRoom, String> map = new HashMap<>();
+        map.put(room, newRoom);
         System.out.println(newRoom + " is an added room");
     }
+
+    //method that gets the room through the provided roomId
     public static IRoom getARoom(String roomId){
         List<IRoom> getRoom = new ArrayList<>();
         for(IRoom room: getRoom){
@@ -22,10 +28,14 @@ public class ReservationService {
         }
         return null;
     }
+
+    //method to reserve a room
     public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
         Reservation reserve = new Reservation(customer, room, checkInDate, checkOutDate);
         return reserve;
     }
+
+    //method to find rooms
     public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
 
         List<IRoom> findRoom = new ArrayList<>();
@@ -43,6 +53,8 @@ public class ReservationService {
         }
         return null;
     }
+
+    //method to get customer's reservation
     public static Collection<Reservation> getCustomerReservation(Customer customer){
 
         List<Reservation> reservation = new ArrayList<>();
@@ -58,15 +70,15 @@ public class ReservationService {
             }
         }
         return null;
-
     }
+
+    //method to print all reservations to the console
     public static void printAllReservation(){
 
         Queue<Reservation> getReservations = new LinkedList<>();
 
         while(!getReservations.isEmpty()){
-            System.out.println("All reservations ------> " + getReservations.poll());
+            System.out.println(getReservations.poll());
         }
-
     }
 }

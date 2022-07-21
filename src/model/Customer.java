@@ -17,6 +17,7 @@ public class Customer {
     String emailRegex = "^(.+)@(.+).com$"; // regex to validate the email string
     Pattern pattern = Pattern.compile(emailRegex);
 
+    //constructor
     public Customer(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,14 +29,7 @@ public class Customer {
         }
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
+    // accessor method to get email
     public String getEmail() {
         return email;
     }

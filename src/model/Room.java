@@ -8,17 +8,10 @@ public class Room implements IRoom{
     private Double price;
     private RoomType enumeration;
 
+    //constructor
     public Room(String roomNumber, Double price, RoomType enumeration) {
         this.roomNumber = roomNumber;
         this.price = price;
-        this.enumeration = enumeration;
-    }
-
-    public RoomType getEnumeration() {
-        return enumeration;
-    }
-
-    public void setEnumeration(RoomType enumeration) {
         this.enumeration = enumeration;
     }
 
@@ -36,6 +29,7 @@ public class Room implements IRoom{
         return Objects.hash(getRoomNumber());
     }
 
+    //override the methods from the interface class
     @Override
     public String getRoomNumber() {
         return this.roomNumber;
@@ -56,6 +50,7 @@ public class Room implements IRoom{
         return false;
     }
 
+    //override toString method
     @Override
     public String toString() {
         return "RoomNumber: " + getRoomNumber() +
