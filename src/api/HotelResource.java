@@ -25,8 +25,8 @@ public class HotelResource {
     }
 
     public static IRoom getRoom(String roomNumber){
-        //calling static method to get room from ReservationService class
         Room room = new Room();
+        //calling static method to get room from ReservationService class
         ReservationService.getARoom(roomNumber);
         return room;
     }

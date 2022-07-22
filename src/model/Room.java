@@ -7,12 +7,14 @@ public class Room implements IRoom{
     private String roomNumber;
     private Double price;
     private RoomType enumeration;
+    private boolean isFree;
 
     //constructor
-    public Room(String roomNumber, Double price, RoomType enumeration) {
+    public Room(String roomNumber, Double price, RoomType enumeration, boolean isFree) {
         this.roomNumber = roomNumber;
         this.price = price;
         this.enumeration = enumeration;
+        this.isFree = isFree;
     }
 
     //empty constructor
@@ -52,7 +54,7 @@ public class Room implements IRoom{
 
     @Override
     public boolean isFree() {
-        return false;
+        return this.isFree;
     }
 
     //override toString method

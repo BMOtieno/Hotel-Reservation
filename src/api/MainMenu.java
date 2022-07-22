@@ -1,6 +1,7 @@
 package api;
 
 import api.HotelResource;
+import api.AdminMenu;
 import model.Customer;
 
 import java.util.Scanner;
@@ -21,23 +22,33 @@ public class MainMenu {
 
                     int select = Integer.parseInt(scan.nextLine());
 
-                    if(select == 1){
-                        System.out.println();
-                        runTask = false;
-                    }else if(select == 2){
-                        System.out.println();
-                        runTask = false;
-                    }else if(select == 3){
-                        System.out.println();
-                        runTask = false;
-                    }else if(select == 4){
-                        System.out.println();
-                        runTask = false;
-                    }else if(select == 5){
-                        System.out.println("Have a great day");
-                        runTask = false;
-                    }else{
-                        System.out.println("Please select numbers between 1 and 5");
+                    switch (select){
+                        case 1:
+                            //HotelResource.findARoom();
+                            //HotelResource.bookARoom();
+                           // runTask = false;
+                           // break;
+
+                        case 2:
+                            //HotelResource.getCustomerReservations();
+                            //runTask = false;
+                           // break;
+
+                        case 3:
+                           // HotelResource.createACustomer();
+                           // runTask = false;
+                           // break;
+
+                        case 4:
+                            AdminMenu.adminMenu();
+                            runTask = false;
+                            break;
+
+                        case 5:
+
+
+                        default:
+                            System.out.println("Please enter a number between 1 and 5");
                     }
                 }
             }catch(Exception e){
