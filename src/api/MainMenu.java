@@ -3,7 +3,12 @@ package api;
 import api.HotelResource;
 import api.AdminMenu;
 import model.Customer;
+import model.IRoom;
+import model.Room;
+import model.RoomType;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -25,19 +30,45 @@ public class MainMenu {
                     switch (select){
                         case 1:
                             System.out.println("Enter CheckIn Date mm/dd/yy example 02/01/2020");
+                            String dateInputOne = scan.nextLine();
+                            SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
+                            Date date = format.parse(dateInputOne);
 
                             System.out.println("Enter checkOut Date month/day/year example 2/21/2020");
+                            String dateInputTwo = scan.nextLine();
+                            Date dateTwo = format.parse(dateInputTwo);
+                            HotelResource.findARoom(date, dateTwo);
 
                             System.out.println("Would you like to book a room? y/n");
-
-                            System.out.println("Do you have an account with us? y/n");
+                            if(scan.nextLine().equals("y") || scan.nextLine().equals("n")){
+                                System.out.println("Do you have an account with us? y/n");
+                                if(scan.nextLine().equals("y") || scan.nextLine().equals("n")){
+                                    continue;
+                                }
+                            }else{
+                                System.out.println("You must enter a value y for 'Yes' or n for 'No' ");
+                            }
 
                             System.out.println("Enter Email format: name@domain.com");
+                            String nameOfCustomer = scan.nextLine();
+                            HotelResource.getCustomer(nameOfCustomer);
 
-                            System.out.println("What room would you like to reserve? ");
-                            //HotelResource.findARoom();
-                            //HotelResource.bookARoom();
-
+                            System.out.println("What room would you like to reserve? y/n");
+                            String enteredNumber = scan.nextLine();
+                            System.out.println("Enter price: ");
+                            double price = scan.nextDouble();
+                            System.out.println("Room type: a.Single or b.Double?");
+                            String selectedType = scan.nextLine();
+                            RoomType myRoom = RoomType.NONE;
+                            if(selectedType.equals("a")){
+                                myRoom = RoomType.SINGLE;
+                            }else if(selectedType.equals("b")){
+                                myRoom = RoomType.DOUBLE;
+                            }else{
+                                System.out.println("Please select either (a) or (b) for room type");
+                            }
+                            HotelResource.bookARoom(nameOfCustomer, new Room(enteredNumber, price, myRoom) , date, dateTwo);
+                            HotelResource.getRoom(enteredNumber);
                              break;
 
                         case 2:

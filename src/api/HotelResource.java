@@ -13,10 +13,9 @@ import java.util.*;
 public class HotelResource {
 
     public static Customer getCustomer(String email){
-        Customer customer = new Customer();
         //calling static method to get customer from CustomerService class
         CustomerService.getCustomer(email);
-        return customer;
+        return new Customer(new Customer().getFirstName(), new Customer().getLastName(), email);
     }
 
     public static void createACustomer(String email, String firstName, String lastName){
@@ -25,51 +24,33 @@ public class HotelResource {
     }
 
     public static IRoom getRoom(String roomNumber){
-        Room room = new Room();
         //calling static method to get room from ReservationService class
         ReservationService.getARoom(roomNumber);
-        return room;
+        return new Room(roomNumber, new Room().getRoomPrice(), new Room().getRoomType());
     }
 
     public static Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate){
+        //calling static method to book a room from ReservationService class
+        Customer customer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), customerEmail);
+        ReservationService.reserveARoom(customer, room, checkInDate, checkOutDate);
+        return new Reservation(customer, room, checkInDate, checkOutDate);
 
-        Reservation reserve = new Reservation();
-
-        List<Customer> customer = new ArrayList<>();
-
-        for(Customer customerObject: customer){
-            Map<String, Customer> map = new HashMap<>();
-            map.put(customerEmail, customerObject);
-
-            if(map.containsKey(customerEmail)){
-                //calling static method to book a room from ReservationService class
-                ReservationService.reserveARoom(customerObject, room, checkInDate, checkOutDate);
-            }
-        }
-        return reserve;
     }
 
     public static Collection<Reservation> getCustomerReservations(String customerEmail){
-
-        ArrayList<Customer> customer = new ArrayList<>();
         ArrayList<Reservation> reserve = new ArrayList<>();
-
-        for(Customer res: customer){
-            Map<String, Customer> map = new HashMap<>();
-            map.put(customerEmail, res);
-
-            if(map.containsKey(customerEmail)){
-                //calling static method to get customer reservation from ReservationService class
-                ReservationService.getCustomerReservation(res);
-            }
-        }
-
+        Reservation reserved = new Reservation(new Reservation().getCustomer(), new Reservation().getRoom(), new Reservation().getCheckInDate(), new Reservation().getCheckOutDate());
+        reserve.add(reserved);
+        //calling static method to get customer reservation from ReservationService class
+        ReservationService.getCustomerReservation(new Customer(new Customer().getFirstName(), new Customer().getLastName(), customerEmail));
         return reserve;
     }
 
     public static Collection<IRoom> findARoom(Date checkIn, Date checkOut){
         //static method to find room from ReservationService class
         List<IRoom> room = new ArrayList<>();
+        Room foundRoom = new Room(new Room().getRoomNumber(), new Room().getRoomPrice(), new Room().getRoomType());
+        room.add(foundRoom);
         ReservationService.findRooms(checkIn, checkOut);
         return room;
     }

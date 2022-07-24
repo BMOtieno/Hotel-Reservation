@@ -17,18 +17,16 @@ public class CustomerService {
 
     //method to get customer details through email provided
     public static String getCustomer(String customerEmail){
-
-        Customer customer = new Customer();
-        customer.setEmail(customerEmail);
+        Customer customer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), customerEmail);
         customer.getEmail();
-
         return customer.getFirstName();
-
     }
 
     //method to search for all customers
     public static Collection<Customer> getAllCustomers(){
         Queue<Customer> getCustomers = new LinkedList<>();
+        Customer customer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), new Customer().getEmail());
+        getCustomers.add(customer);
 
         while(!getCustomers.isEmpty()){
             System.out.println(getCustomers.poll());

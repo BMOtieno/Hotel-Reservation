@@ -15,15 +15,8 @@ public class ReservationService {
 
     //method that gets the room through the provided roomId
     public static IRoom getARoom(String roomId){
-
-        Room room = new Room();
-
-        String searchedRoom = room.getRoomNumber();
-
-        if(roomId.equals(searchedRoom)){
-            System.out.println("We found this room: ");
-            System.out.println(roomId);
-        }
+        Room room = new Room(roomId, new Room().getRoomPrice(), new Room().getRoomType());
+        System.out.println("Here is the room " + room.getRoomNumber());
         return room;
     }
 
@@ -37,6 +30,8 @@ public class ReservationService {
     public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
 
         List<IRoom> findRoom = new ArrayList<>();
+        Room roomObject = new Room(new Room().getRoomNumber(), new Room().getRoomPrice(), new Room().getRoomType());
+        findRoom.add(roomObject);
 
         for(IRoom room : findRoom){
             Map<Date, IRoom> mapOne = new HashMap<>();
@@ -59,17 +54,11 @@ public class ReservationService {
     public static  Collection<Reservation> getCustomerReservation(Customer customer){
 
         List<Reservation> reservation = new ArrayList<>();
+        Reservation reserved = new Reservation(customer, new Reservation().getRoom(), new Reservation().getCheckInDate(), new Reservation().getCheckOutDate());
+        reservation.add(reserved);
 
-        for(Reservation reserve: reservation){
-            Map<Customer, Reservation> map = new HashMap<>();
-            map.put(customer, reserve);
-
-            if(map.containsKey(customer)){
-                System.out.println("Here are the customer reservation details: ");
-                System.out.println(map.values());
-            }else{
-                System.out.println("Sorry customer hasn't made any reservations.");
-            }
+        for(Reservation r : reservation){
+            System.out.println("Here is the customer's reservation details: " + r);
         }
         return reservation;
     }
@@ -78,6 +67,10 @@ public class ReservationService {
     public static void printAllReservation(){
 
         Queue<Reservation> getReservations = new LinkedList<>();
+        Reservation allReserved = new Reservation(new Reservation().getCustomer(), new Reservation().getRoom(), new Reservation().getCheckInDate(), new Reservation().getCheckOutDate());
+        getReservations.add(allReserved);
+
+        System.out.println("Here are all the reservations: ");
 
         while(!getReservations.isEmpty()){
             System.out.println(getReservations.poll());

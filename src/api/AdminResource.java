@@ -3,6 +3,7 @@ package api;
 import model.Customer;
 import model.IRoom;
 import api.HotelResource;
+import model.Room;
 import service.CustomerService;
 import service.ReservationService;
 
@@ -11,7 +12,7 @@ import java.util.*;
 public class AdminResource {
 
     public static Customer getCustomer(String email) {
-        Customer customer = new Customer();
+        Customer customer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), email);
         //calling static method from HotelResource class
         HotelResource.getCustomer(email);
         return customer;
@@ -26,7 +27,8 @@ public class AdminResource {
 
     public static Collection<IRoom> getAllRooms(){
         Queue<IRoom> allRooms = new LinkedList<>();
-
+        Room rooms = new Room(new Room().getRoomNumber(), new Room().getRoomPrice(), new Room().getRoomType());
+        allRooms.add(rooms);
         System.out.println("All Rooms: ");
         while(!allRooms.isEmpty()){
             System.out.println(allRooms.poll());
@@ -38,7 +40,6 @@ public class AdminResource {
         List<Customer> customer = new ArrayList<>();
         //calling static method from CustomerService class
         customer.addAll(CustomerService.getAllCustomers());
-        //CustomerService.getAllCustomers();
         return customer;
     }
 
