@@ -51,7 +51,7 @@ public class HotelResource {
 
     public static Collection<Reservation> getCustomerReservations(String customerEmail){
 
-        List<Customer> customer = new ArrayList<>();
+        ArrayList<Customer> customer = new ArrayList<>();
         ArrayList<Reservation> reserve = new ArrayList<>();
 
         for(Customer res: customer){
@@ -63,6 +63,7 @@ public class HotelResource {
                 ReservationService.getCustomerReservation(res);
             }
         }
+
         return reserve;
     }
 

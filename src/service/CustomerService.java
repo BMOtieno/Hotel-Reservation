@@ -17,17 +17,13 @@ public class CustomerService {
 
     //method to get customer details through email provided
     public static String getCustomer(String customerEmail){
-        Map<String, Customer> data = new HashMap<>();
 
-        for(String email: data.keySet()) {
-            if (email.equals(customerEmail)) {
-                System.out.println("Retrieved customer details");
-                System.out.println("============================");
-                System.out.println(data.values());
-                System.out.println("============================");
-            }
-        }
-        return "Sorry customer not found";
+        Customer customer = new Customer();
+        customer.setEmail(customerEmail);
+        customer.getEmail();
+
+        return customer.getFirstName();
+
     }
 
     //method to search for all customers

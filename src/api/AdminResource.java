@@ -37,7 +37,8 @@ public class AdminResource {
     public static Collection<Customer> getAllCustomers() {
         List<Customer> customer = new ArrayList<>();
         //calling static method from CustomerService class
-        CustomerService.getAllCustomers();
+        customer.addAll(CustomerService.getAllCustomers());
+        //CustomerService.getAllCustomers();
         return customer;
     }
 

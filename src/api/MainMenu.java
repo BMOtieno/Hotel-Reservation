@@ -24,20 +24,37 @@ public class MainMenu {
 
                     switch (select){
                         case 1:
+                            System.out.println("Enter CheckIn Date mm/dd/yy example 02/01/2020");
+
+                            System.out.println("Enter checkOut Date month/day/year example 2/21/2020");
+
+                            System.out.println("Would you like to book a room? y/n");
+
+                            System.out.println("Do you have an account with us? y/n");
+
+                            System.out.println("Enter Email format: name@domain.com");
+
+                            System.out.println("What room would you like to reserve? ");
                             //HotelResource.findARoom();
                             //HotelResource.bookARoom();
-                           // runTask = false;
-                           // break;
+
+                             break;
 
                         case 2:
-                            //HotelResource.getCustomerReservations();
-                            //runTask = false;
-                           // break;
+                            System.out.println("Enter Email format: name@domain.com");
+                            String emailCustomer = scan.nextLine();
+                            HotelResource.getCustomerReservations(emailCustomer);
+                            break;
 
                         case 3:
-                           // HotelResource.createACustomer();
-                           // runTask = false;
-                           // break;
+                            System.out.println("Enter Email format: name@domain.com");
+                            String email = scan.nextLine();
+                            System.out.println("First name:");
+                            String fName = scan.nextLine();
+                            System.out.println("Last Name:");
+                            String lName = scan.nextLine();
+                            HotelResource.createACustomer(email, fName, lName);
+                            break;
 
                         case 4:
                             AdminMenu.adminMenu();
@@ -45,7 +62,9 @@ public class MainMenu {
                             break;
 
                         case 5:
-
+                            System.out.println("Good bye");
+                            runTask = false;
+                            break;
 
                         default:
                             System.out.println("Please enter a number between 1 and 5");
