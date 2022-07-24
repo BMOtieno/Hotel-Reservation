@@ -33,11 +33,6 @@ public class Customer {
     public Customer(){
 
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getFirstName() {
         return this.firstName;
     }
