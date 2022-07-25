@@ -67,8 +67,11 @@ public class AdminMenu {
                             }
 
                             System.out.println("Would you like to add another room? y/n");
-                            if(scanner.nextLine().equals("y") || (scanner.nextLine().equals("n"))){
-                                continue;
+                            String response = scanner.next();
+                            if(response.equals("y")){
+                                adminMenu();
+                            }else if(response.equals("n")){
+                                MainMenu.mainMenu();
                             }else{
                                 System.out.println("Please enter Y( Yes) or N (no)");
                             }
