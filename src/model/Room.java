@@ -55,7 +55,6 @@ public class Room implements IRoom{
     public String toString() {
         return "RoomNumber: " + this.roomNumber +
                 "\nPrice: $" + this.price +
-                "\nRoom Type: " + this.enumeration +
-                "\nVacant: " + isFree();
+                "\nRoom Type: " + this.enumeration;
     }
 }

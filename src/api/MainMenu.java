@@ -48,8 +48,8 @@ public class MainMenu {
                             break;
 
                         case 5:
-                            System.out.println("Good bye");
                             runTask = false;
+                            System.out.println("Good bye");
                             break;
 
                         default:

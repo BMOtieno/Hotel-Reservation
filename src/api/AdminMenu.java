@@ -86,7 +86,7 @@ public class AdminMenu {
         adminResourceSingletonObject.displayAllReservations();
     }
 
-    public static void addARoom(){
+    public static void addARoom() {
         Scanner userInput = new Scanner(System.in);
 
         System.out.println("Enter room number: ");
@@ -95,16 +95,16 @@ public class AdminMenu {
         System.out.println("Enter price per night: ");
         double pricePerNight = userInput.nextDouble();
 
-        System.out.println("Enter room type: 1. Single bed,  2. Double bed");
+        System.out.println("Enter room type: 0. Single bed,  1. Double bed");
         int option = userInput.nextInt();
         RoomType roomType = RoomType.getTypeByOrdinal(option);
-        if(roomType == RoomType.SINGLE){
-            RoomType myRoom = RoomType.SINGLE;
-            System.out.println(myRoom);
-        }else if(roomType == RoomType.DOUBLE){
-            RoomType myRoomToo = RoomType.DOUBLE;
-            System.out.println(myRoomToo);
-        }else{
+        RoomType roomType2  = RoomType.getTypeByOrdinal(option);
+
+        if (roomType == RoomType.SINGLE) {
+            System.out.println(roomType);
+        } else if (roomType2 == RoomType.DOUBLE) {
+            System.out.println(roomType2);
+        } else {
             System.out.println("Please select between option 1 and option 2");
         }
 
@@ -113,25 +113,19 @@ public class AdminMenu {
         System.out.println("The room was successfully added");
 
         System.out.println("Would you like to add another room? y/n");
-        addAnotherRoom();
-    }
+        String anotherRoom = userInput.next();
 
-    public static void addAnotherRoom(){
-        Scanner input = new Scanner(System.in);
-        String anotherRoom = input.next();
-
-        while(!(anotherRoom.equals("y") && anotherRoom.equals("n")) || anotherRoom.length() != 1){
+        while ((!anotherRoom.equals("y") && !anotherRoom.equals("n")) || anotherRoom.length() != 1) {
             System.out.println("Please enter Y for Yes or N for No");
-            anotherRoom = input.next();
+            anotherRoom = userInput.next();
         }
-
-        if(anotherRoom.equals("y")){
+        if (anotherRoom.equals("y")) {
             addARoom();
-        }else if(anotherRoom.equals("n")){
+        } else if (anotherRoom.equals("n")) {
             adminMenu();
-        }else{
-            addAnotherRoom();
+        } else {
+            addARoom();
         }
-
     }
 }
+
