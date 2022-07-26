@@ -16,12 +16,14 @@ public class AdminMenu {
 
             while(runProcess){
                 try{
+                    System.out.println("------------------------------------------");
                     System.out.println("Welcome to the Admin Dashboard");
                     System.out.println("1. See all Customers");
                     System.out.println("2. See all Rooms");
                     System.out.println("3. See all Reservations");
                     System.out.println("4. Add a Room");
                     System.out.println("5. Back to the Main Menu");
+                    System.out.println("-------------------------------------------");
                     int choice = Integer.parseInt(scanner.nextLine());
 
                     switch (choice){
@@ -94,8 +96,8 @@ public class AdminMenu {
         double pricePerNight = userInput.nextDouble();
 
         System.out.println("Enter room type: 1. Single bed,  2. Double bed");
-        String option = userInput.next();
-        RoomType roomType = RoomType.valueOf(option);
+        int option = userInput.nextInt();
+        RoomType roomType = RoomType.getTypeByOrdinal(option);
         if(roomType == RoomType.SINGLE){
             RoomType myRoom = RoomType.SINGLE;
             System.out.println(myRoom);

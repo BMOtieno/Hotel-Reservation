@@ -19,12 +19,14 @@ public class MainMenu {
         try(Scanner scan = new Scanner(System.in)){
             try{
                 while(runTask){
+                    System.out.println("----------------------------------------------");
                     System.out.println("Welcome to Brian's Hotel Reservation App");
                     System.out.println("1. Find and reserve a room");
                     System.out.println("2. See my reservations");
                     System.out.println("3. Create an account");
                     System.out.println("4. Admin");
                     System.out.println("5. Exit");
+                    System.out.println("-----------------------------------------------");
 
                     int select = Integer.parseInt(scan.nextLine());
 
