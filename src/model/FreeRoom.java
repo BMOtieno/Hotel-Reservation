@@ -9,10 +9,6 @@ public class FreeRoom extends Room{
 
     @Override
     public String toString() {
-        if (isFree()) {
-            return "This room is free";
-        } else {
-           return "This room is occupied";
-        }
+        return "Is room free? " + super.toString();
     }
 }

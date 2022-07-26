@@ -10,9 +10,9 @@ package model;
 import java.util.regex.Pattern;
 
 public class Customer {
-    private String firstName;
-    private String lastName;
-    private String email;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
 
     String emailRegex = "^(.+)@(.+).com$"; // regex to validate the email string
     Pattern pattern = Pattern.compile(emailRegex);
@@ -29,26 +29,14 @@ public class Customer {
         }
     }
 
-    //empty constructor
-    public Customer(){
-
-    }
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
     public String getEmail() {
         return this.email;
     }
 
     @Override
     public String toString() {
-        return "FirstName: " + firstName +
-                "\nLastName: " + lastName +
-                "\nEmail: " + email;
+        return "FirstName: " + this.firstName +
+                "\nLastName: " + this.lastName +
+                "\nEmail: " + this.email;
     }
 }

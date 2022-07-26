@@ -2,51 +2,45 @@ package api;
 
 import model.Customer;
 import model.IRoom;
-import api.HotelResource;
-import model.Room;
 import service.CustomerService;
 import service.ReservationService;
 
 import java.util.*;
 
 public class AdminResource {
+    //Use Singleton Design Patterns for AdminResource Class
+    private static AdminResource adminResourceObject = new AdminResource();
 
-    public static Customer getCustomer(String email) {
-        Customer customer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), email);
-        //calling static method from HotelResource class
-        HotelResource.getCustomer(email);
-        return customer;
+    private AdminResource(){
+
+    }
+    public static AdminResource getAdminResourceObject(){
+        return adminResourceObject;
     }
 
-    public static void addRoom(List<IRoom> rooms){
+    private final CustomerService customerService = CustomerService.getSingletonObject();
+    private final ReservationService reservationService = ReservationService.getReservationSingletonObject();
+
+    public Customer getCustomer(String email) {
+        return customerService.getCustomer(email);
+    }
+
+    public void addRoom(List<IRoom> rooms){
         for(IRoom room: rooms){
-            //calling static method from Reservation class
-            ReservationService.addRoom(room);
+            reservationService.addRoom(room);
         }
     }
 
-    public static Collection<IRoom> getAllRooms(){
-        Queue<IRoom> allRooms = new LinkedList<>();
-        Room rooms = new Room(new Room().getRoomNumber(), new Room().getRoomPrice(), new Room().getRoomType());
-        allRooms.add(rooms);
-        System.out.println("All Rooms: ");
-        while(!allRooms.isEmpty()){
-            System.out.println(allRooms.poll());
-        }
-        return allRooms;
+    public Collection<IRoom> getAllRooms(){
+        return reservationService.getAllRooms();
     }
 
-    public static Collection<Customer> getAllCustomers() {
-        List<Customer> customer = new ArrayList<>();
-        Customer newCustomer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), new Customer().getEmail());
-        customer.add(newCustomer);
-        //calling static method from CustomerService class
-        CustomerService.getAllCustomers();
-        return customer;
+    public Collection<Customer> getAllCustomers() {
+        return customerService.getAllCustomers();
     }
 
-    public static void displayAllReservations(){
-        //calling static method from Reservation class
-        ReservationService.printAllReservation();
+    public void displayAllReservations(){
+        //calling method from Reservation class
+        reservationService.printAllReservation();
     }
 }

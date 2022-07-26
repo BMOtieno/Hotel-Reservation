@@ -16,31 +16,22 @@ public class Reservation {
         this.checkOutDate = checkOutDate;
     }
 
-    //empty constructor
-    public Reservation(){
-
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
     public IRoom getRoom() {
-        return room;
+        return this.room;
     }
 
     public Date getCheckInDate() {
-        return checkInDate;
+        return this.checkInDate;
     }
 
     public Date getCheckOutDate() {
-        return checkOutDate;
+        return this.checkOutDate;
     }
 
     @Override
     public String toString() {
-        return "Customer: " + customer +
-                "\nRoom: " + room +
+        return "Customer: " + this.customer.toString() +
+                "\nRoom: " + this.room.toString() +
                 "\nCheck-in Date: " + checkInDate +
                 "\nCheck-out Date: " + checkOutDate;
     }

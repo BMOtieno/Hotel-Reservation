@@ -5,32 +5,31 @@ import model.Customer;
 import java.util.*;
 
 public class CustomerService {
+    //Apply Singleton design patterns
+    private static CustomerService singletonObject = new CustomerService();
+
+    private CustomerService(){
+
+    }
+
+    public static CustomerService getSingletonObject(){
+        return singletonObject;
+    }
+    //Map data structure to hold the list of customers
+    Map<String, Customer> listOfCustomers = new HashMap<>();
 
     //add new customer
-    public static void addCustomer(String email, String firstName, String lastName){
-        Customer customer = new Customer(firstName, lastName, email);
-        System.out.println("New customer added");
-        System.out.println("================================");
-        System.out.println(customer);
-        System.out.println("================================");
+    public void addCustomer(String email, String firstName, String lastName){
+        listOfCustomers.put(email, new Customer(firstName, lastName, email));
     }
 
     //method to get customer details through email provided
-    public static String getCustomer(String customerEmail){
-        Customer customer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), customerEmail);
-        customer.getEmail();
-        return customer.getFirstName();
+    public  Customer getCustomer(String customerEmail){
+        return listOfCustomers.get(customerEmail);
     }
 
     //method to search for all customers
-    public static Collection<Customer> getAllCustomers(){
-        Queue<Customer> getCustomers = new LinkedList<>();
-        Customer customer = new Customer(new Customer().getFirstName(), new Customer().getLastName(), new Customer().getEmail());
-        getCustomers.add(customer);
-
-        while(!getCustomers.isEmpty()){
-            System.out.println(getCustomers.poll());
-        }
-       return getCustomers;
+    public  Collection<Customer> getAllCustomers(){
+        return listOfCustomers.values();
     }
 }

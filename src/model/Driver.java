@@ -2,11 +2,12 @@ package model;
 
 /**
  * Customer tester class
+ * @author Brian Odhiambo
  */
 
 public class Driver {
     public static void main(String[] args){
-        Customer customer = new Customer("first","second", "j@domain.com");
+        Customer customer = new Customer("Jay","Cee", "j@domain.com");
         System.out.println(customer);
 
         //string array of email addresses
@@ -14,7 +15,7 @@ public class Driver {
 
        for(int i = 0; i < secondCustomers.length; i++){
            try{
-               System.out.println(new Customer("JokA", "Hannah",secondCustomers[i]));
+               System.out.println(new Customer("JokaMama", "Hannah",secondCustomers[i]));
            }catch(IllegalArgumentException e){
                System.out.println(e.getLocalizedMessage());
            }

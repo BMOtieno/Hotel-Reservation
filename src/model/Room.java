@@ -4,22 +4,15 @@ import java.util.Objects;
 
 public class Room implements IRoom{
 
-    private String roomNumber;
-    private Double price;
-    private RoomType enumeration;
-    private boolean isFree;
+    private final String roomNumber;
+    private final Double price;
+    private final RoomType enumeration;
 
     //constructor
     public Room(String roomNumber, Double price, RoomType enumeration) {
         this.roomNumber = roomNumber;
         this.price = price;
         this.enumeration = enumeration;
-        this.isFree = isFree();
-    }
-
-    //empty constructor
-    public Room(){
-
     }
 
     //method to compare if two rooms have the same room number
@@ -34,14 +27,6 @@ public class Room implements IRoom{
     @Override
     public int hashCode() {
         return Objects.hash(getRoomNumber());
-    }
-
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    public void setRoomPrice(Double price) {
-        this.price = price;
     }
 
     //override the methods from the interface class
@@ -62,15 +47,15 @@ public class Room implements IRoom{
 
     @Override
     public boolean isFree() {
-        return this.isFree;
+        return this.price != null && this.price.equals(0.0);
     }
 
     //override toString method
     @Override
     public String toString() {
-        return "RoomNumber: " + getRoomNumber() +
-                "\nPrice: " + getRoomPrice() +
-                "\nRoom Type: " + getRoomType() +
+        return "RoomNumber: " + this.roomNumber +
+                "\nPrice: $" + this.price +
+                "\nRoom Type: " + this.enumeration +
                 "\nVacant: " + isFree();
     }
 }
