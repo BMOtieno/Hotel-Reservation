@@ -47,8 +47,7 @@ public class MainMenu {
 
                         case 5:
                             System.out.println("Good bye");
-                            runTask = false;
-                            break;
+                            System.exit(0);
 
                         default:
                             System.out.println("Please enter a number between 1 and 5");
@@ -114,12 +113,13 @@ public class MainMenu {
     }
 
     public static void seeMyReservations(){
+
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter your email: Use the format name@domain.com");
         String clientEmail = scan.nextLine();
 
-        hotelResourceObject.getCustomerReservations(clientEmail);
+        System.out.println(hotelResourceObject.getCustomerReservations(clientEmail));
     }
 
     public static void createAnAccount(){
