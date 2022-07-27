@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class MainMenu {
 
+    private static final String DATE_FORMAT = "MM/dd/yyyy";
     public static HotelResource hotelResourceObject = HotelResource.getHotelResourceSingletonObject();
     public static AdminResource adminResourceObject = AdminResource.getAdminResourceObject();
 
@@ -61,19 +62,18 @@ public class MainMenu {
 
     public static void findAndReserveARoom() throws ParseException {
         Scanner scanned = new Scanner(System.in);
-        SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
 
         //find a room
         System.out.println("Enter CheckIn Date mm/dd/yyyy example 02/13/2020");
         String dateInputOne = scanned.nextLine();
-        Date date =  format.parse(dateInputOne);
+        Date date = new SimpleDateFormat(DATE_FORMAT).parse(dateInputOne);
 
         System.out.println("Enter CheckOut Date mm/dd/yyyy example 10/21/2020");
         String dateInputTwo = scanned.nextLine();
-        Date dateTwo =  format.parse(dateInputTwo);
+        Date dateTwo = new SimpleDateFormat(DATE_FORMAT).parse(dateInputTwo);
 
         if(date != null && dateTwo != null){
-            hotelResourceObject.findARoom(date, dateTwo);
+            hotelResourceObject.findARoom(date,dateTwo);
         }
 
         System.out.println(adminResourceObject.getAllRooms());
@@ -82,10 +82,10 @@ public class MainMenu {
         System.out.println("Would you like to book a room? y/n");
         String response = scanned.nextLine();
 
-        if(response.equals("y")){
+        if(response.equalsIgnoreCase("y")){
             System.out.println("Do you have an account with us? y/n");
             String accountOpened = scanned.nextLine();
-            if(accountOpened.equals("y")){
+            if(accountOpened.equalsIgnoreCase("y")){
                 System.out.println("Please enter your email. Email format name@domain.com");
                 String customerEmail = scanned.nextLine();
 
@@ -100,12 +100,12 @@ public class MainMenu {
                     System.out.println(reservation);
                     mainMenu();
                 }
-            }else if(accountOpened.equals("n")){
+            }else if(accountOpened.equalsIgnoreCase("n")){
                 mainMenu();
             }else{
                 System.out.println("Please select either Y for Yes or N for No");
             }
-        }else if(response.equals("n")){
+        }else if(response.equalsIgnoreCase("n")){
             mainMenu();
         }else{
             System.out.println("Please select either Y for Yes or N for No");

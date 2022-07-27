@@ -42,5 +42,6 @@ public class AdminResource {
     public void displayAllReservations(){
         //calling method from Reservation class
         reservationService.printAllReservation();
+
     }
 }

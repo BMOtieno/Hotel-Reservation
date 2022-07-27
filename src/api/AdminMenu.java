@@ -114,13 +114,13 @@ public class AdminMenu {
         System.out.println("Would you like to add another room? y/n");
         String anotherRoom = userInput.next();
 
-        while ((!anotherRoom.equals("y") && !anotherRoom.equals("n")) || anotherRoom.length() != 1) {
+        while ((!anotherRoom.equalsIgnoreCase("y") && !anotherRoom.equalsIgnoreCase("n")) || anotherRoom.length() != 1) {
             System.out.println("Please enter Y for Yes or N for No");
             anotherRoom = userInput.next();
         }
-        if (anotherRoom.equals("y")) {
+        if (anotherRoom.equalsIgnoreCase("y")) {
             addARoom();
-        } else if (anotherRoom.equals("n")) {
+        } else if (anotherRoom.equalsIgnoreCase("n")) {
             adminMenu();
         } else {
             addARoom();

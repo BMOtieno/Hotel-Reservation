@@ -16,6 +16,8 @@ public class ReservationService {
         return reservationSingletonObject;
     }
 
+    private static final int ROOMS_DEFAULT_RECOMMENDED_OUTSIDE_DATE  = 7;
+
     Map<String, IRoom> allRooms = new HashMap<>();
     Map<String, Collection<Reservation>> allReservations = new HashMap<>();
 
@@ -44,13 +46,13 @@ public class ReservationService {
         return reserve;
     }
 
-    //method to get all rooms
-    public Collection<IRoom> getAllRooms(){
+    // method to get all rooms
+     public Collection<IRoom> getAllRooms(){
         return allRooms.values();
     }
 
     //method to find rooms
-    public  Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
+    public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
         Collection<Reservation> totalReservations = new LinkedList<>();
         Collection<IRoom> unAvailableRooms = new LinkedList<>();
 
@@ -62,9 +64,21 @@ public class ReservationService {
         return unAvailableRooms;
     }
 
+    public Collection<IRoom> lookForAlternativeRooms(Date checkIn, Date checkOut){
+        return findRooms(addDays(checkIn), addDays(checkOut));
+    }
+
     //method to get customer's reservation
-    public  Collection<Reservation> getCustomerReservation(Customer customer){
+    public Collection<Reservation> getCustomerReservation(Customer customer){
         return allReservations.get(customer.getEmail());
+    }
+
+    //default method to add seven days to the original checkIn and checkout dates
+    Date addDays(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, ROOMS_DEFAULT_RECOMMENDED_OUTSIDE_DATE);
+        return calendar.getTime();
     }
 
     //method to print all reservations to the console
@@ -78,6 +92,7 @@ public class ReservationService {
                 System.out.println(reserve + "\n");
             }
         }
-
     }
+
 }
+
