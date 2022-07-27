@@ -28,10 +28,11 @@ public class Reservation {
         return this.checkOutDate;
     }
 
+    String newline = System.lineSeparator();
+
     @Override
     public String toString() {
-        return "Customer: " + this.customer.toString() +
-                "\nRoom: " + this.room.toString() +
+        return this.customer.toString() + newline + this.room.toString() +
                 "\nCheck-in Date: " + checkInDate +
                 "\nCheck-out Date: " + checkOutDate;
     }

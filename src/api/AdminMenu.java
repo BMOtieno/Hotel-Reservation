@@ -1,7 +1,6 @@
 package api;
 
 import model.*;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
@@ -13,7 +12,6 @@ public class AdminMenu {
     public static void adminMenu(){
         boolean runProcess = true;
         try(Scanner scanner = new Scanner(System.in)){
-
             while(runProcess){
                 try{
                     System.out.println("------------------------------------------");
@@ -24,6 +22,7 @@ public class AdminMenu {
                     System.out.println("4. Add a Room");
                     System.out.println("5. Back to the Main Menu");
                     System.out.println("-------------------------------------------");
+
                     int choice = Integer.parseInt(scanner.nextLine());
 
                     switch (choice){
@@ -50,7 +49,6 @@ public class AdminMenu {
 
                         default:
                             System.out.println("Select a number between 1 and 5. Please try again.");
-                            break;
                     }
                 }catch (Exception e){
                     System.out.println("Error!!! You have entered an invalid input");
@@ -58,6 +56,7 @@ public class AdminMenu {
             }
         }
     }
+
     public static void seeAllCustomers(){
         Collection<Customer> allCustomers = adminResourceSingletonObject.getAllCustomers();
 
@@ -95,7 +94,7 @@ public class AdminMenu {
         System.out.println("Enter price per night: ");
         double pricePerNight = userInput.nextDouble();
 
-        System.out.println("Enter room type: 0. Single bed,  1. Double bed");
+        System.out.println("Enter room type: 1. Single bed,  2. Double bed");
         int option = userInput.nextInt();
         RoomType roomType = RoomType.getTypeByOrdinal(option);
         RoomType roomType2  = RoomType.getTypeByOrdinal(option);

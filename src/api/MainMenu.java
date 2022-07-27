@@ -2,7 +2,6 @@ package api;
 
 import model.Reservation;
 import model.IRoom;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,11 +13,10 @@ public class MainMenu {
     public static AdminResource adminResourceObject = AdminResource.getAdminResourceObject();
 
     public static void mainMenu(){
-
         boolean runTask = true;
         try(Scanner scan = new Scanner(System.in)){
-            try{
-                while(runTask){
+            while(runTask){
+                try{
                     System.out.println("----------------------------------------------");
                     System.out.println("Welcome to Brian's Hotel Reservation App");
                     System.out.println("1. Find and reserve a room");
@@ -48,17 +46,16 @@ public class MainMenu {
                             break;
 
                         case 5:
-                            runTask = false;
                             System.out.println("Good bye");
+                            runTask = false;
                             break;
 
                         default:
                             System.out.println("Please enter a number between 1 and 5");
-                            break;
                     }
+                }catch(Exception e){
+                    System.out.println("Error!! Invalid Input");
                 }
-            }catch(Exception e){
-                System.out.println("Error!! Invalid input");
             }
         }
     }
@@ -68,49 +65,51 @@ public class MainMenu {
         SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
 
         //find a room
-        System.out.println("Enter CheckIn Date mm/dd/yy example 02/13/2020");
+        System.out.println("Enter CheckIn Date mm/dd/yyyy example 02/13/2020");
         String dateInputOne = scanned.nextLine();
         Date date =  format.parse(dateInputOne);
 
-        System.out.println("Enter CheckOut Date mm/dd/yy example 10/21/2020");
+        System.out.println("Enter CheckOut Date mm/dd/yyyy example 10/21/2020");
         String dateInputTwo = scanned.nextLine();
         Date dateTwo =  format.parse(dateInputTwo);
 
         if(date != null && dateTwo != null){
             hotelResourceObject.findARoom(date, dateTwo);
-        }else{
-            adminResourceObject.getAllRooms();
         }
+
+        System.out.println(adminResourceObject.getAllRooms());
 
         //book a room
         System.out.println("Would you like to book a room? y/n");
-        String response = scanned.next();
+        String response = scanned.nextLine();
 
         if(response.equals("y")){
-            System.out.println("Do you have an Account already opened? y/n");
-            String accountOpened = scanned.next();
+            System.out.println("Do you have an account with us? y/n");
+            String accountOpened = scanned.nextLine();
             if(accountOpened.equals("y")){
                 System.out.println("Please enter your email. Email format name@domain.com");
                 String customerEmail = scanned.nextLine();
 
-                if(hotelResourceObject.getCustomer(customerEmail) == null){
-                    System.out.println("User not found. \nCreate an account to book a room");
-                    createAnAccount();
+                if(adminResourceObject.getCustomer(customerEmail) == null){
+                    System.out.println("Customer not found. Please create an account");
                 }else{
-                    System.out.println("Enter the room number you would like to reserve");
+                    System.out.println("What room would you would like to reserve");
                     String reservedRoomNumber = scanned.nextLine();
                     IRoom room = hotelResourceObject.getRoom(reservedRoomNumber);
                     Reservation reservation = hotelResourceObject.bookARoom(customerEmail, room, date, dateTwo);
                     System.out.println("Reservations made successfully");
                     System.out.println(reservation);
+                    mainMenu();
                 }
+            }else if(accountOpened.equals("n")){
+                mainMenu();
             }else{
-                System.out.println("Please create an account");
-                createAnAccount();
+                System.out.println("Please select either Y for Yes or N for No");
             }
+        }else if(response.equals("n")){
+            mainMenu();
         }else{
-            System.out.println("You need an account to be able to book a room");
-            createAnAccount();
+            System.out.println("Please select either Y for Yes or N for No");
         }
     }
 

@@ -6,7 +6,7 @@ package model;
  */
 
 public enum RoomType {
-    SINGLE, DOUBLE;
+    NONE, SINGLE, DOUBLE;
 
     public static RoomType getTypeByOrdinal(int ordinal){
         for(RoomType roomType: RoomType.values()){
