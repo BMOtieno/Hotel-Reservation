@@ -53,7 +53,7 @@ public class ReservationService {
 
     //method to find rooms
     public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
-        Collection<Reservation> totalReservations = new LinkedList<>();
+        Collection<Reservation> totalReservations = getEveryReservation();
         Collection<IRoom> unAvailableRooms = new LinkedList<>();
 
         for(Reservation reservation: totalReservations){
@@ -61,6 +61,14 @@ public class ReservationService {
                 unAvailableRooms.add(reservation.getRoom());
             }
         }
+
+        //for(IRoom room: allRooms.values()){
+           // for(IRoom emptyRoom: unAvailableRooms){
+               // if(room.equals(emptyRoom)){
+                   // unAvailableRooms.remove(emptyRoom);
+               // }
+           // }
+        //}
         return unAvailableRooms;
     }
 
@@ -83,7 +91,7 @@ public class ReservationService {
 
     //method to print all reservations to the console
     public void printAllReservation(){
-        Collection<Reservation> outputAllReservations = new LinkedList<>();
+        Collection<Reservation> outputAllReservations = getEveryReservation();
 
         if(outputAllReservations.isEmpty()){
             System.out.println("There are no reservations made.");
@@ -92,6 +100,15 @@ public class ReservationService {
                 System.out.println(reserve + "\n");
             }
         }
+    }
+
+    private Collection<Reservation> getEveryReservation(){
+        Collection<Reservation> everyReservation = new LinkedList<>();
+
+        for(Collection<Reservation> allReservations: allReservations.values()){
+            everyReservation.addAll(allReservations);
+        }
+        return everyReservation;
     }
 
 }

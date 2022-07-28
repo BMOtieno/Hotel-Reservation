@@ -4,6 +4,7 @@ import model.Reservation;
 import model.IRoom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -73,7 +74,15 @@ public class MainMenu {
         Date dateTwo = new SimpleDateFormat(DATE_FORMAT).parse(dateInputTwo);
 
         if(date != null && dateTwo != null){
-            hotelResourceObject.findARoom(date,dateTwo);
+           Collection<IRoom> availableRooms = hotelResourceObject.findARoom(date,dateTwo);
+
+           if(availableRooms.isEmpty()){
+               Collection<IRoom> otherRooms = hotelResourceObject.findAlternativeRooms(date, dateTwo);
+
+               if(otherRooms.isEmpty()){
+                   System.out.println("++++++++++++++++++++++++++++++++++++++");
+               }
+           }
         }
 
         System.out.println(adminResourceObject.getAllRooms());

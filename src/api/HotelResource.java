@@ -54,4 +54,8 @@ public class HotelResource {
         //method to find room from ReservationService class
         return reservationService.findRooms(checkIn, checkOut);
     }
+
+    public Collection<IRoom> findAlternativeRooms(Date checkIn, Date checkOut){
+        return reservationService.lookForAlternativeRooms(checkIn, checkOut);
+    }
 }
