@@ -58,4 +58,10 @@ public class HotelResource {
     public Collection<IRoom> findAlternativeRooms(Date checkIn, Date checkOut){
         return reservationService.lookForAlternativeRooms(checkIn, checkOut);
     }
+
+    public Date addDefaultDays(Date date){
+        //adds 7 default days to check for available rooms
+        return reservationService.addDays(date);
+    }
+
 }

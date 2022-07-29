@@ -54,24 +54,30 @@ public class ReservationService {
     //method to find rooms
     public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
         Collection<Reservation> totalReservations = getEveryReservation();
-        Collection<IRoom> unAvailableRooms = new LinkedList<>();
+        Collection<IRoom> availableRooms = new LinkedList<>();
 
         for(Reservation reservation: totalReservations){
-            if(checkInDate.before(reservation.getCheckOutDate()) && checkOutDate.after(reservation.getCheckInDate())){
-                unAvailableRooms.add(reservation.getRoom());
+            if(reservationOverlapChecker(reservation, checkInDate, checkOutDate)){
+                availableRooms.add(reservation.getRoom());
             }
         }
 
-        //for(IRoom room: allRooms.values()){
-           // for(IRoom emptyRoom: unAvailableRooms){
-               // if(room.equals(emptyRoom)){
-                   // unAvailableRooms.remove(emptyRoom);
-               // }
-           // }
-        //}
-        return unAvailableRooms;
+        for(IRoom room: allRooms.values()){
+            for(IRoom emptyRoom: availableRooms){
+                if(room.equals(emptyRoom)){
+                    availableRooms.remove(emptyRoom);
+                }
+            }
+        }
+        return availableRooms;
     }
 
+    //default method to check for reservation overlap
+    boolean reservationOverlapChecker(Reservation reservation, Date checkIn, Date checkOut){
+        return checkIn.before(reservation.getCheckOutDate()) && checkOut.after(reservation.getCheckInDate());
+    }
+
+    //method to check for alternative rooms
     public Collection<IRoom> lookForAlternativeRooms(Date checkIn, Date checkOut){
         return findRooms(addDays(checkIn), addDays(checkOut));
     }
@@ -81,8 +87,8 @@ public class ReservationService {
         return allReservations.get(customer.getEmail());
     }
 
-    //default method to add seven days to the original checkIn and checkout dates
-    Date addDays(Date date){
+    //method to add seven days to the original checkIn and checkout dates
+    public Date addDays(Date date){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(calendar.DATE, ROOMS_DEFAULT_RECOMMENDED_OUTSIDE_DATE);
@@ -102,6 +108,7 @@ public class ReservationService {
         }
     }
 
+    //method to return every reservation
     private Collection<Reservation> getEveryReservation(){
         Collection<Reservation> everyReservation = new LinkedList<>();
 
