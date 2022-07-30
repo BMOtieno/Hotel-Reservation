@@ -42,7 +42,6 @@ public class HotelResource {
     public Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate){
         //calling method to book a room from ReservationService class
         return reservationService.reserveARoom(getCustomer(customerEmail), room, checkInDate, checkOutDate);
-
     }
 
     public Collection<Reservation> getCustomerReservations(String customerEmail){

@@ -2,6 +2,7 @@ package service;
 
 import model.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReservationService {
 
@@ -39,7 +40,6 @@ public class ReservationService {
         if(reservationsMade == null){
             reservationsMade = new LinkedList<>();
         }
-
         reservationsMade.add(reserve);
         allReservations.put(customer.getEmail(), reservationsMade);
 
@@ -61,15 +61,8 @@ public class ReservationService {
                 availableRooms.add(reservation.getRoom());
             }
         }
-
-        for(IRoom room: allRooms.values()){
-            for(IRoom emptyRoom: availableRooms){
-                if(room.equals(emptyRoom)){
-                    availableRooms.remove(emptyRoom);
-                }
-            }
-        }
-        return availableRooms;
+        //return all the registered room values
+        return allRooms.values().stream().filter(room -> availableRooms.stream().noneMatch(aRooms -> availableRooms.equals(room))).collect(Collectors.toList());
     }
 
     //default method to check for reservation overlap
@@ -117,6 +110,5 @@ public class ReservationService {
         }
         return everyReservation;
     }
-
 }
 

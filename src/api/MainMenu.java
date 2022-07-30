@@ -74,18 +74,14 @@ public class MainMenu {
         String dateInputTwo = scanned.nextLine();
         Date dateTwo = new SimpleDateFormat(DATE_FORMAT).parse(dateInputTwo);
 
-        HashSet<Reservation> reservationsData = new HashSet<>();
-        Collection<IRoom> availableRooms = new LinkedList<>();
-        Collection<IRoom> otherRooms = new LinkedList<>();
-
         if(date != null && dateTwo != null){
-            availableRooms = hotelResourceObject.findARoom(date,dateTwo);
+            Collection<IRoom> availableRooms = hotelResourceObject.findARoom(date,dateTwo);
 
            if(availableRooms.isEmpty()){
-               otherRooms = hotelResourceObject.findAlternativeRooms(date, dateTwo);
+               Collection<IRoom> otherRooms = hotelResourceObject.findAlternativeRooms(date, dateTwo);
 
-               if(otherRooms.isEmpty()){
-                   System.out.println("");
+               if(otherRooms.isEmpty()) {
+                   System.out.println("Room not found");
                }
            }
         }
@@ -112,38 +108,40 @@ public class MainMenu {
                     System.out.println("What room would you would like to reserve");
                     String reservedRoomNumber = scanned.nextLine();
                     IRoom room = hotelResourceObject.getRoom(reservedRoomNumber);
-                    availableRooms.add(room); //add room to available rooms collection
                     Reservation reservation = hotelResourceObject.bookARoom(customerEmail, room, date, dateTwo);
-                        if(checkSimilarity(reservationsData, reservation)){
-                            System.out.println("Reservations made successfully");
-                            System.out.println(reservation);
+                    Collection<IRoom> allRoomsReserved = adminResourceObject.getAllRooms();
+
+                    if(!allRoomsReserved.contains(room)){
+                        System.out.println("Reservations made successfully");
+                        System.out.println(reservation);
+                    }else{
+                        System.out.println("This room is reserved");
+                        allRoomsReserved.remove(room);
+                        Date possibleCheckIn = hotelResourceObject.addDefaultDays(date);
+                        Date possibleCheckOut = hotelResourceObject.addDefaultDays(dateTwo);
+                        System.out.println("Recommended rooms on alternative dates:" +
+                                "\nCheckIn Date: " + possibleCheckIn +
+                                "\nCheckOut Date: " + possibleCheckOut);
+
+                        System.out.println("Enter new room [type 'x' to skip]:");
+                        String recommendedRoom = scanned.nextLine();
+                        IRoom roomObject = hotelResourceObject.getRoom(recommendedRoom);
+                        System.out.println("Enter your email [type 'x' to skip]. Email format name@domain.com");
+                        String customerAlternativeEmail = scanned.nextLine();
+
+                        if(adminResourceObject.getCustomer(customerEmail).equals(adminResourceObject.getCustomer(customerAlternativeEmail))){
+                            System.out.println("Customer already booked a room");
                         }else{
-                            System.out.println("Room successfully reserved");
-                            Date possibleCheckIn = hotelResourceObject.addDefaultDays(date);
-                            Date possibleCheckOut = hotelResourceObject.addDefaultDays(dateTwo);
-                            System.out.println("Recommended rooms on alternative dates:" +
-                                    "\nCheckIn Date: " + possibleCheckIn +
-                                    "\nCheckOut Date: " + possibleCheckOut);
-
-                            System.out.println("Enter new room [type 'x' to skip]:");
-                            String recommendedRoom = scanned.nextLine();
-                            IRoom roomObject = hotelResourceObject.getRoom(recommendedRoom);
-                            otherRooms.add(roomObject); //add roomObject to alternative rooms collection
-                            System.out.println("Enter your email [type 'x' to skip]. Email format name@domain.com");
-                            String customerAlternativeEmail = scanned.nextLine();
-
-                                if(adminResourceObject.getCustomer(customerEmail).equals(adminResourceObject.getCustomer(customerAlternativeEmail))){
-                                    System.out.println("Customer already booked a room");
-                                }else{
-                                    Reservation possibleReservation = hotelResourceObject.bookARoom(customerAlternativeEmail, roomObject, possibleCheckIn, possibleCheckOut);
-                                    System.out.println("Successfully made a Reservation");
-                                    System.out.println("====================================================");
-                                    System.out.println(possibleReservation);
-                                    System.out.println("====================================================");
-                                }
+                            Reservation possibleReservation = hotelResourceObject.bookARoom(customerAlternativeEmail, roomObject, possibleCheckIn, possibleCheckOut);
+                            System.out.println("Successfully made a Reservation");
+                            System.out.println("====================================================");
+                            System.out.println(possibleReservation);
+                            System.out.println("====================================================");
                         }
+                    }
                     mainMenu();
                 }
+
             }else if(accountOpened.equalsIgnoreCase("n")){
                 mainMenu();
             }else{
@@ -184,16 +182,5 @@ public class MainMenu {
         System.out.println("Account created successfully");
 
         mainMenu();
-    }
-
-    //method to check that reservation isn't made twice
-    public static boolean checkSimilarity(HashSet<Reservation> input, Reservation userResponse){
-
-        for(Reservation index: input){
-            if(index.equals(userResponse)){
-                return true;
-            }
-        }
-        return false;
     }
 }
