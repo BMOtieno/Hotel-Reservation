@@ -107,16 +107,17 @@ public class MainMenu {
                 }else{
                     System.out.println("What room would you would like to reserve");
                     String reservedRoomNumber = scanned.nextLine();
-                    IRoom room = hotelResourceObject.getRoom(reservedRoomNumber);
-                    Reservation reservation = hotelResourceObject.bookARoom(customerEmail, room, date, dateTwo);
-                    Collection<IRoom> allRoomsReserved = adminResourceObject.getAllRooms();
 
-                    if(!allRoomsReserved.contains(room)){
+                    Collection<IRoom> allRoomsReserved = adminResourceObject.getAllRooms();
+                    IRoom room = hotelResourceObject.getRoom(reservedRoomNumber);
+
+                    if(allRoomsReserved.contains(room)){
+                        Reservation reservation = hotelResourceObject.bookARoom(customerEmail, room, date, dateTwo);
                         System.out.println("Reservations made successfully");
                         System.out.println(reservation);
-                    }else{
-                        System.out.println("This room is reserved");
                         allRoomsReserved.remove(room);
+                    }else{
+                        System.out.println("This room is already reserved");
                         Date possibleCheckIn = hotelResourceObject.addDefaultDays(date);
                         Date possibleCheckOut = hotelResourceObject.addDefaultDays(dateTwo);
                         System.out.println("Recommended rooms on alternative dates:" +
