@@ -130,8 +130,8 @@ public class MainMenu {
                         System.out.println("Enter your email [type 'x' to skip]. Email format name@domain.com");
                         String customerAlternativeEmail = scanned.nextLine();
 
-                        if(adminResourceObject.getCustomer(customerEmail).equals(adminResourceObject.getCustomer(customerAlternativeEmail))){
-                            System.out.println("Customer already booked a room");
+                        if(recommendedRoom.equalsIgnoreCase("x") && customerAlternativeEmail.equalsIgnoreCase("x")){
+                            System.out.println("Process terminated...returning to the main menu");
                         }else{
                             Reservation possibleReservation = hotelResourceObject.bookARoom(customerAlternativeEmail, roomObject, possibleCheckIn, possibleCheckOut);
                             System.out.println("Successfully made a Reservation");
